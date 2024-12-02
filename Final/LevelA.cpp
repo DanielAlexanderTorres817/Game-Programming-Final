@@ -146,11 +146,14 @@ void LevelA::initialise()
     m_game_state.P2cursor->deactivate();
 
     //---------------------FIREBALLS----------------//
-    m_game_state.fireball1 = new Entity(Utility::load_texture("assets/fireball.png"), 0.5f, 0.5f, 3.0f, FIREBALL);
+    m_game_state.fireball1 = new Entity(Utility::load_texture("assets/fireball.png"), 5.5f, 0.5f, 0.5f, FIREBALL);
 
     m_game_state.fireball1->set_position(-view_offset + (glm::vec3(-6.5f, -0.5f, 0.0f)));
     m_game_state.fireball1->set_scale(glm::vec3(0.5f, 0.25f, 1.0f));
-    //m_game_state.fireball1->deactivate();
+    m_game_state.fireball1->set_movement(glm::vec3(0.0f, 0.0f, 0.0f));
+    m_game_state.fireball1->set_acceleration(glm::vec3(0.0f, -4.0f, 0.0f));
+    m_game_state.fireball1->set_jumping_power(1);
+    m_game_state.fireball1->deactivate();
 
     
 

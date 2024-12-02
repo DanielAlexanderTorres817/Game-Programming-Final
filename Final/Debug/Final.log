@@ -1,10 +1,2 @@
-﻿  Entity.cpp
-  LevelA.cpp
-  Scene.cpp
-  Title.cpp
-C:\Users\User\source\repos\Final\Final\Title.cpp(134,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  main.cpp
-C:\Users\User\source\repos\Final\Final\main.cpp(30,29): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
-C:\Users\User\source\repos\Final\Final\main.cpp(31,25): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
-  Generating Code...
-  Final.vcxproj -> C:\Users\User\source\repos\Final\Debug\Final.exe
+﻿  LevelA.cpp
+  Final.vcxproj -> C:\Users\DanTo\source\repos\Game-Programming-Final\Debug\Final.exe

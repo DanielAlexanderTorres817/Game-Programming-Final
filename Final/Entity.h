@@ -129,8 +129,8 @@ public:
     void move_right() { m_movement.x = 1.0f; }
     void move_up() { m_movement.y = 1.0f;    }
     void move_down() { m_movement.y = -1.0f; }
-    void rotate_cw() { m_rotation.z += -0.01f; }
-    void rotate_ccw(){ m_rotation.z += 0.01f;}
+    void rotate_cw() { m_rotation.z += -glm::radians(0.1f); }
+    void rotate_ccw(){ m_rotation.z +=  glm::radians(0.1f);}
     void const jump() { m_is_jumping = true; }
     //void shoot() { m_movement = glm::vec3(cos(m_rotation.z), sin(m_rotation.z), 0.0f); }
     void set_animation_state(Animation new_animation);
@@ -144,7 +144,7 @@ public:
     glm::vec3 const get_acceleration() const { return m_acceleration; }
     glm::vec3 const get_movement()     const { return m_movement; }
     glm::vec3 const get_scale()        const { return m_scale; }
-    glm::vec3 const get_rotation()     const { return m_rotation; }
+    float const get_rotation()     const { return m_rotation.z; }
     GLuint    const get_texture_id()   const { return m_texture_id; }
     float     const get_speed()        const { return m_speed; }
     bool      const get_collided_top() const { return m_collided_top; }

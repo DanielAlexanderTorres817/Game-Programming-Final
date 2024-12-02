@@ -24,6 +24,8 @@
 #include "Scene.h"
 #include "LevelA.h"
 #include "Title.h"
+#include "random"
+#include "cstdlib"
 
 
 // ————— CONSTANTS ————— //
@@ -242,10 +244,20 @@ void process_input()
     }
     if (!g_title_flag && key_state[SDL_SCANCODE_SPACE] && !g_current_scene->get_state().fireball1->shoot_flag) {
         //g_current_scene->get_state().P1cursor->activate();
-        //g_current_scene->get_state().fireball1->activate();
-        float x = cos(glm::radians(g_current_scene->get_state().P1cursor->get_rotation().z));
-        float y = sin(glm::radians(g_current_scene->get_state().P1cursor->get_rotation().z));
-        g_current_scene->get_state().fireball1->set_movement(glm::vec3(x, y, 0.0f));
+        g_current_scene->get_state().fireball1->activate();
+        float x = glm::cos((g_current_scene->get_state().P1cursor->get_rotation()));
+        float y = glm::sin((g_current_scene->get_state().P1cursor->get_rotation()));
+        
+
+
+        
+       
+        g_current_scene->get_state().fireball1->jump();
+        g_current_scene->get_state().fireball1->set_movement(glm::vec3(x, 0.0f, 0.0f));
+        //g_current_scene->get_state().fireball1->set_velocity(glm::vec3(1.0f, 1.0f, 0.0f));
+        //g_current_scene->get_state().fireball1->set_acceleration(glm::vec3(0.0f, -4.5f, 0.0f));
+        
+
     }
     else if (!g_title_flag){
         //g_current_scene->get_state().P1cursor->deactivate();
@@ -307,8 +319,8 @@ void update()
     //g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-g_current_scene->get_state().player->get_position().x, -g_current_scene->get_state().player->get_position().y, 0));
 
     
-    if (g_current_scene->get_state().player->get_position().x > LEVEL1_LEFT_EDGE) {
-        g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-g_current_scene->get_state().player->get_position().x, 3.75, 0));
+    if (g_current_scene->get_state().fireball1->get_position().x > LEVEL1_LEFT_EDGE) {
+        g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-g_current_scene->get_state().fireball1->get_position().x, 3.75, 0));
     } else {
         g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-5, 3.75, 0));
     }
