@@ -137,6 +137,9 @@
     <ClCompile Include="LevelA.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="P1win.cpp" />
+    <ClCompile Include="P2win.cpp" />
+    <ClCompile Include="P2win.h" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Title.cpp" />
@@ -146,6 +149,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="LevelA.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="P1win.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Title.h" />

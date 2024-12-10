@@ -16,7 +16,7 @@
 #include "glm/glm.hpp"
 #include "ShaderProgram.h"
 enum EntityType { CURSOR, PLAYER, ENEMY, FIREBALL };
-enum AIType { WALKER, GUARD, JUMPER };
+enum AIType { WALKER, GUARD, JUMPER, NONE };
 enum AIState { WALKING, IDLING, ATTACKING };
 enum Animation { IDLE, WALK };
 
@@ -50,8 +50,10 @@ private:
     glm::vec3 m_scale;
     glm::vec3 m_velocity;
     glm::vec3 m_acceleration;
+    glm::vec3 m_starting_pos;
     glm::vec3 m_rotation = glm::vec3(0.0f, 0.0f, 0.0f);
     glm::mat4 m_model_matrix;
+
 
     float     m_speed,
         m_jumping_power;
@@ -129,8 +131,8 @@ public:
     void move_right() { m_movement.x = 1.0f; }
     void move_up() { m_movement.y = 1.0f;    }
     void move_down() { m_movement.y = -1.0f; }
-    void rotate_cw() { m_rotation.z += -glm::radians(0.1f); }
-    void rotate_ccw(){ m_rotation.z +=  glm::radians(0.1f);}
+    void rotate_cw() { m_rotation.z += -glm::radians(0.2f); }
+    void rotate_ccw(){ m_rotation.z +=  glm::radians(0.2f);}
     void const jump() { m_is_jumping = true; }
     //void shoot() { m_movement = glm::vec3(cos(m_rotation.z), sin(m_rotation.z), 0.0f); }
     void set_animation_state(Animation new_animation);
@@ -151,6 +153,7 @@ public:
     bool      const get_collided_bottom() const { return m_collided_bottom; }
     bool      const get_collided_right() const { return m_collided_right; }
     bool      const get_collided_left() const { return m_collided_left; }
+    glm::vec3 const get_starting_pos() const { return m_starting_pos;}
     //bool      const get_attacking_status() const { return is_attacking; }
 
     void activate() { m_is_active = true; };
@@ -175,6 +178,7 @@ public:
     void const set_jumping_power(float new_jumping_power) { m_jumping_power = new_jumping_power; }
     void const set_width(float new_width) { m_width = new_width; }
     void const set_height(float new_height) { m_height = new_height; }
+    void const set_starting_pos(glm::vec3 pos) { m_starting_pos = pos; }
     
 
     //void const set_texture_id_single(GLuint id) { single_texture_id = id; }

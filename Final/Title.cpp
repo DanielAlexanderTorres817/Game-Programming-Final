@@ -11,7 +11,7 @@ ENEMY_FILEPATH[] = "assets/enemy/Idle.png";
 
 unsigned int TITLE_DATA[] =
 {
-     25, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -20,7 +20,7 @@ unsigned int TITLE_DATA[] =
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
-     0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 25,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+     0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -36,7 +36,7 @@ GLuint g_font_texture_id;
 
 Title::~Title()
 {
-    delete[] m_game_state.enemies;
+    delete[] m_game_state.enemy;
     delete    m_game_state.player;
     delete    m_game_state.map;
     Mix_FreeChunk(m_game_state.jump_sfx);
@@ -103,7 +103,7 @@ void Title::initialise()
 
     };
 
-    m_game_state.enemies = new Entity[ENEMY_COUNT];
+    m_game_state.enemy = new Entity[ENEMY_COUNT];
     std::vector<std::vector<int>> enemy_animations = {
 
         {0, 1, 2, 3, 4, 5, 6,},          // IDLE animation frames
@@ -114,8 +114,8 @@ void Title::initialise()
 
     for (int i = 0; i < ENEMY_COUNT; i++)
     {
-        m_game_state.enemies[i] = Entity(enemy_texture_ids, enemy_animations, 1.5f, 0.25f, 1.5f, ENEMY, GUARD, IDLING);
-        m_game_state.enemies[i].set_scale(glm::vec3(1.5f, 1.5f, 1.0f));
+        m_game_state.enemy[i] = Entity(enemy_texture_ids, enemy_animations, 1.5f, 0.25f, 1.5f, ENEMY, GUARD, IDLING);
+        m_game_state.enemy[i].set_scale(glm::vec3(1.5f, 1.5f, 1.0f));
     }
 
 
@@ -151,9 +151,11 @@ void Title::update(float delta_time)
 void Title::render(ShaderProgram* g_shader_program)
 {
     m_game_state.map->render(g_shader_program);
-    Utility::draw_text(g_shader_program, g_font_texture_id, "INSERT EPIC TITLE HERE!", 0.3f, 0.0f, glm::vec3(-3.25f, 2.5f, 0.0f));
-    Utility::draw_text(g_shader_program, g_font_texture_id, "Collect this flower to win!", 0.3f, 0.0f, glm::vec3(-3.75f, 1.5f, 0.0f));
-    Utility::draw_text(g_shader_program, g_font_texture_id, "(press ENTER please)", 0.3f, 0.0f, glm::vec3(-2.75f, -2.5f, 0.0f));
+    Utility::draw_text(g_shader_program, g_font_texture_id, "Welcome to the game!!!", 0.3f, 0.0f, glm::vec3(-3.25f, 2.5f, 0.0f));
+    Utility::draw_text(g_shader_program, g_font_texture_id, "Select a difficulty", 0.3f, 0.0f, glm::vec3(-3.05f, 1.5f, 0.0f));
+    Utility::draw_text(g_shader_program, g_font_texture_id, "press 1 for easy", 0.3f, 0.0f, glm::vec3(-2.5f, -0.75f, 0.0f));
+    Utility::draw_text(g_shader_program, g_font_texture_id, "press 2 for normal", 0.3f, 0.0f, glm::vec3(-2.5f, -1.25f, 0.0f));
+    Utility::draw_text(g_shader_program, g_font_texture_id, "press 3 for hard", 0.3f, 0.0f, glm::vec3(-2.5f, -1.75f, 0.0f));
 
     //m_game_state.player->render(g_shader_program);
     //for (int i = 0; i < m_number_of_enemies; i++)

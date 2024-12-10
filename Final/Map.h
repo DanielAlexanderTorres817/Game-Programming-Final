@@ -25,9 +25,12 @@
 #include "ShaderProgram.h"
 
 
+
 class Map {
 public:
     bool win_status = false;
+    
+    char status = 'F';
 private:
     int m_width;
     int m_height;

@@ -29,6 +29,8 @@ void Entity::ai_activate(Entity *player)
             //set_jumping_power(3.0f);
             if (get_collided_bottom()) { jump(); }
             break;
+        case NONE:
+            break;
         default:
             break;
     }

@@ -1,2 +1,3 @@
-﻿  LevelA.cpp
-  Final.vcxproj -> C:\Users\DanTo\source\repos\Game-Programming-Final\Debug\Final.exe
+﻿  P2win.cpp
+C:\Users\User\source\repos\Final\Final\P2win.cpp(134,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Final.vcxproj -> C:\Users\User\source\repos\Final\Debug\Final.exe

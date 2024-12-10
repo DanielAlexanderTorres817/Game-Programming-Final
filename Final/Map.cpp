@@ -110,7 +110,12 @@ bool Map::is_solid(glm::vec3 position, float* penetration_x, float* penetration_
     int tile = m_level_data[tile_y * m_width + tile_x];
     if (tile == 0 || tile == 71) return false;
 
-    //if (tile == 25 || tile == 1) { this->win_status = true; }
+    //if (tile == 8 || tile == 9 || tile == 15 || tile == 7 || tile == 14) { this->status = 'M'; }
+    if (tile == 8 ) { this->status = 'M'; }
+
+    else if (tile == 4 || tile == 26 || tile == 5 || tile == 16 || tile == 6 || tile == 17 || tile == 28 || tile == 29 || tile == 57 || tile == 59 || tile == 40 || tile == 46 || tile == 47) {
+        this->status = 'H';
+    }
 
     float tile_center_x = (tile_x * m_tile_size);
     float tile_center_y = -(tile_y * m_tile_size);

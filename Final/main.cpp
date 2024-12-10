@@ -24,6 +24,8 @@
 #include "Scene.h"
 #include "LevelA.h"
 #include "Title.h"
+#include "P1win.h"
+#include "P2win.h"
 #include "random"
 #include "cstdlib"
 
@@ -48,16 +50,20 @@ constexpr char V_SHADER_PATH[] = "shaders/vertex_textured.glsl",
 constexpr float MILLISECONDS_IN_SECOND = 1000.0;
 
 enum AppStatus { RUNNING, TERMINATED };
+enum Turn {PLAYER1, PLAYER2};
 
 // ————— GLOBAL VARIABLES ————— //
 Scene *g_current_scene;
+Turn turn = PLAYER1;
 LevelA *g_level_a;
 Title *g_title;
+P1win* g_p1win;
+P2win* g_p2win;
 //LevelB* g_level_b;
 //LevelC* g_level_c;
 //Lose* g_lose;
 //Win* g_win;
-Scene* g_levels[3];
+Scene* g_levels[4];
 
 SDL_Window* g_display_window;
 GLuint font;
@@ -70,8 +76,8 @@ float g_previous_ticks = 0.0f;
 float g_accumulator = 0.0f;
 
 int lives = 3;
-int P1lives = 3;
-int P2lives = 3;
+int P1lives = 1;
+int P2lives = 1;
 
 void switch_to_scene(Scene *scene)
 {
@@ -89,13 +95,17 @@ void shutdown();
 
 bool g_title_flag = true;
 
+float left_offset = -(LEVEL_WIDTH * 0.5) / 2.0f;
+float top_offset = (LEVEL_HEIGHT * 0.5) / 2.0f;
+glm::vec3 g_view_offset(left_offset, top_offset, 0.0f);
+
 
 
 void initialise()
 {
     // ————— VIDEO ————— //
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
-    g_display_window = SDL_CreateWindow("Platformer!",
+    g_display_window = SDL_CreateWindow("Tower Seige!",
                                       SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                       WINDOW_WIDTH, WINDOW_HEIGHT,
                                       SDL_WINDOW_OPENGL);
@@ -135,10 +145,14 @@ void initialise()
     
     g_title = new Title();
     g_level_a = new LevelA();
+    g_p1win = new P1win();
+    g_p2win = new P2win();
     
 
     g_levels[0] = g_title;
     g_levels[1] = g_level_a; 
+    g_levels[2] = g_p1win;
+    g_levels[3] = g_p2win;
     
 
     
@@ -205,7 +219,7 @@ void process_input()
     // ————— KEY HOLD ————— //
     const Uint8 *key_state = SDL_GetKeyboardState(NULL);
 
-    if (key_state[SDL_SCANCODE_LEFT] || key_state[SDL_SCANCODE_A]) {
+    /*if (key_state[SDL_SCANCODE_LEFT] || key_state[SDL_SCANCODE_A]) {
         g_current_scene->get_state().player->move_left();
         g_current_scene->get_state().player->face_left();
         g_current_scene->get_state().player->set_texture_id(WALK);
@@ -222,13 +236,23 @@ void process_input()
     else {
         g_current_scene->get_state().player->set_texture_id(IDLE);
         g_current_scene->get_state().player->set_animation_state(IDLE);
-    }
+    }*/
 
-    if (key_state[SDL_SCANCODE_RETURN] && g_title_flag) {
+    if (key_state[SDL_SCANCODE_1] && g_title_flag) {
         g_title_flag = false;
         
         switch_to_scene(g_levels[1]);
     }
+    //if (key_state[SDL_SCANCODE_2] && g_title_flag) {
+    //    g_title_flag = false;
+
+    //    //switch_to_scene(g_levels[2]);
+    //}
+    //if (key_state[SDL_SCANCODE_3] && g_title_flag) {
+    //    g_title_flag = false;
+
+    //    //switch_to_scene(g_levels[3]);
+    //}
     /*if (key_state[SDL_SCANCODE_K]) {
         lives = 0;
     }*/
@@ -236,33 +260,47 @@ void process_input()
         g_current_scene->get_state().map->win_status = true;
         //switch_to_scene(g_levels[5]);
     }
-    if (!g_title_flag && key_state[SDL_SCANCODE_UP]) {
+    if (!g_title_flag && key_state[SDL_SCANCODE_W]) {
         g_current_scene->get_state().P1cursor->rotate_ccw();
     }
-    else if (!g_title_flag && key_state[SDL_SCANCODE_DOWN]) {
+    else if (!g_title_flag && key_state[SDL_SCANCODE_S]) {
         g_current_scene->get_state().P1cursor->rotate_cw();
     }
-    if (!g_title_flag && key_state[SDL_SCANCODE_SPACE] && !g_current_scene->get_state().fireball1->shoot_flag) {
+    if (!g_title_flag && key_state[SDL_SCANCODE_UP]) {
+        g_current_scene->get_state().P2cursor->rotate_cw();
+    }
+    else if (!g_title_flag && key_state[SDL_SCANCODE_DOWN]) {
+        g_current_scene->get_state().P2cursor->rotate_ccw();
+    }
+    if (!g_title_flag && key_state[SDL_SCANCODE_LSHIFT] && !g_current_scene->get_state().fireball1->shoot_flag) {
+        
+        if (turn == PLAYER1) {
+            g_current_scene->get_state().fireball1->activate();
+            float x = glm::cos((g_current_scene->get_state().P1cursor->get_rotation()));
+            float y = glm::sin((g_current_scene->get_state().P1cursor->get_rotation()));
+
+            g_current_scene->get_state().fireball1->jump();
+            g_current_scene->get_state().fireball1->set_movement(glm::vec3(x, y + 0.5f, 0.0f));
+            //g_current_scene->get_state().fireball1->shoot_flag = true;
+        }
         //g_current_scene->get_state().P1cursor->activate();
-        g_current_scene->get_state().fireball1->activate();
-        float x = glm::cos((g_current_scene->get_state().P1cursor->get_rotation()));
-        float y = glm::sin((g_current_scene->get_state().P1cursor->get_rotation()));
-        
-
-
-        
        
-        g_current_scene->get_state().fireball1->jump();
-        g_current_scene->get_state().fireball1->set_movement(glm::vec3(x, 0.0f, 0.0f));
         //g_current_scene->get_state().fireball1->set_velocity(glm::vec3(1.0f, 1.0f, 0.0f));
         //g_current_scene->get_state().fireball1->set_acceleration(glm::vec3(0.0f, -4.5f, 0.0f));
         
 
     }
-    else if (!g_title_flag){
-        //g_current_scene->get_state().P1cursor->deactivate();
-        //g_current_scene->get_state().fireball->deactivate();
+    else if (!g_title_flag && key_state[SDL_SCANCODE_SPACE] && !g_current_scene->get_state().fireball2->shoot_flag) {
+        if (turn == PLAYER2) {
+            g_current_scene->get_state().fireball2->activate();
+            float x = glm::cos((g_current_scene->get_state().P2cursor->get_rotation()));
+            float y = glm::sin((g_current_scene->get_state().P2cursor->get_rotation()));
+
+            g_current_scene->get_state().fireball2->jump();
+            g_current_scene->get_state().fireball2->set_movement(glm::vec3(x, y + 0.5f, 0.0f));
+        }
     }
+   
      
     if (glm::length( g_current_scene->get_state().player->get_movement()) > 1.0f)
         g_current_scene->get_state().player->normalise_movement();
@@ -271,6 +309,7 @@ void process_input()
 
 void update()
 {
+    
     if (g_title_flag) { return; }
     // ————— DELTA TIME / FIXED TIME STEP CALCULATION ————— //
     float ticks = (float)SDL_GetTicks() / MILLISECONDS_IN_SECOND;
@@ -290,39 +329,94 @@ void update()
     while (delta_time >= FIXED_TIMESTEP) {
         // ————— UPDATING THE SCENE (i.e. map, character, enemies...) ————— //
         g_current_scene->update(FIXED_TIMESTEP);
-        //if (g_current_scene->get_state().subtract) {
-        //    lives--; 
-        //    g_current_scene->get_state().subtract = false;
-        //}
+        if (g_current_scene->get_state().map->status != 'F' || g_current_scene->get_state().towers->status != 'F') {
+            if (g_current_scene->get_state().map->status == 'H' || g_current_scene->get_state().towers->status == 'H') {
+                if (turn == PLAYER1){
+                    P2lives--; 
+                    g_current_scene->get_state().fireball1->set_position(g_current_scene->get_state().fireball1->get_starting_pos());
+                    g_current_scene->get_state().fireball1->deactivate();
+                    turn = PLAYER2;
+                }
+                else { 
+                    P1lives--;
+                    g_current_scene->get_state().fireball2->set_position(g_current_scene->get_state().fireball2->get_starting_pos());
+                    g_current_scene->get_state().fireball2->deactivate();
+                    turn = PLAYER1;
+                    
+                }
+                g_current_scene->get_state().map->status = 'F';
+                g_current_scene->get_state().towers->status = 'F';
+            }
+            /*else  {
+                if (turn == PLAYER1) {
+                    
+                    g_current_scene->get_state().fireball1->set_position(g_current_scene->get_state().fireball1->get_starting_pos());
+                    g_current_scene->get_state().fireball1->deactivate();
+                    turn = PLAYER2;
+                }
+                else if (turn == PLAYER2) {
+                    
+                    g_current_scene->get_state().fireball2->set_position(g_current_scene->get_state().fireball2->get_starting_pos());
+                    g_current_scene->get_state().fireball2->deactivate();
+                    turn = PLAYER1;
 
-        //if (lives <= 0) {
-        //    g_current_scene->get_state().end = true;
-        //}
+                }
+            }*/
+            
+            
 
-        //if (g_current_scene->get_state().end == true) {
-        //    //switch_to_scene(g_levels[4]);
-        //}
-
-        //if (g_current_scene->get_state().map->win_status == true) {
-        //    //switch_to_scene(g_levels[5]);
-        //}
+        }
+        if (g_current_scene->get_state().fireball1->get_position().x > 23.0f) {
+            g_current_scene->get_state().fireball1->set_position(g_current_scene->get_state().fireball1->get_starting_pos());
+            g_current_scene->get_state().fireball1->deactivate();
+            turn = PLAYER2;
+        }
+        
+        if (g_current_scene->get_state().fireball2->get_position().x < -11.0f) {
+            g_current_scene->get_state().fireball2->set_position(g_current_scene->get_state().fireball2->get_starting_pos());
+            g_current_scene->get_state().fireball2->deactivate();
+            turn = PLAYER1;
+        }
 
         
+        
         delta_time -= FIXED_TIMESTEP;
+        
     }
     
     g_accumulator = delta_time;
+
     
     
     // ————— PLAYER CAMERA ————— //
     g_view_matrix = glm::mat4(1.0f);
     //g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-g_current_scene->get_state().player->get_position().x, -g_current_scene->get_state().player->get_position().y, 0));
 
-    
-    if (g_current_scene->get_state().fireball1->get_position().x > LEVEL1_LEFT_EDGE) {
-        g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-g_current_scene->get_state().fireball1->get_position().x, 3.75, 0));
-    } else {
-        g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-5, 3.75, 0));
+    if (turn == PLAYER1) {
+        if (g_current_scene->get_state().fireball1->get_position().x > LEVEL1_LEFT_EDGE) {
+            g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-g_current_scene->get_state().fireball1->get_position().x, 3.75, 0));
+        }
+        else {
+            g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-5, 3.75, 0));
+        }
+    }
+    else if (turn == PLAYER2) {
+        if (g_current_scene->get_state().fireball2->get_position().x > LEVEL1_LEFT_EDGE) {
+            g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-g_current_scene->get_state().fireball2->get_position().x, 3.75, 0));
+        }
+        else {
+            g_view_matrix = glm::translate(g_view_matrix, glm::vec3(-5, 3.75, 0));
+        }
+    }
+    if (P2lives == 0) {
+        g_title_flag = true;
+        switch_to_scene(g_levels[2]);
+
+    }
+    if (P1lives == 0) {
+        g_title_flag = true;
+        switch_to_scene(g_levels[3]);
+
     }
 }
 
@@ -339,6 +433,14 @@ void render()
         Utility::draw_text(&g_shader_program, font, "LIVES:" + std::to_string(P1lives), 0.3f, 0.0f,
             g_current_scene->get_state().player->get_position() + glm::vec3(-2.5f, 4.75f, 0.0f));
 
+        Utility::draw_text(&g_shader_program, font, "LIVES:" + std::to_string(P2lives), 0.3f, 0.0f,
+            g_current_scene->get_state().enemy->get_position() + glm::vec3(-0.5f, 4.75f, 0.0f));
+
+        /*Utility::draw_text(&g_shader_program, font, "TURN:" + std::to_string(turn), 0.3f, 0.0f,
+            g_current_scene->get_state().player->get_position() + glm::vec3(-0.5f, 4.25f, 0.0f));
+
+        Utility::draw_text(&g_shader_program, font, "TURN:" + std::to_string(turn), 0.3f, 0.0f,
+            g_current_scene->get_state().enemy->get_position() + glm::vec3(-0.5f, 4.25f, 0.0f));*/
     }
     
 
@@ -353,6 +455,8 @@ void shutdown()
     // ————— DELETING LEVEL A DATA (i.e. map, character, enemies...) ————— //
     delete g_level_a;
     delete g_title;
+    delete g_p1win;
+    delete g_p2win;
     //delete g_level_b;
 }
 
@@ -365,6 +469,8 @@ int main(int argc, char* argv[])
     {
         process_input();
         update();
+
+        
 
         if (g_current_scene->get_state().next_scene_id != 0) switch_to_scene(g_levels[g_current_scene->get_state().next_scene_id]);
 

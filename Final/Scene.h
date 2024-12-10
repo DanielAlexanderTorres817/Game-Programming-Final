@@ -25,7 +25,7 @@ struct GameState
     Map *map;
     Map* towers;
     Entity *player;
-    Entity *enemies;
+    Entity *enemy;
     Entity *P1cursor;
     Entity *P2cursor;
     Entity* fireball1;

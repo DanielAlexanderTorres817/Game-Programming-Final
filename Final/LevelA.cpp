@@ -66,7 +66,7 @@ GLuint  A_font_texture_id;
 
 LevelA::~LevelA()
 {
-    delete [] m_game_state.enemies;
+    delete [] m_game_state.enemy;
     delete    m_game_state.player;
     delete    m_game_state.map;
     Mix_FreeChunk(m_game_state.jump_sfx);
@@ -123,42 +123,7 @@ void LevelA::initialise()
     m_game_state.player->set_scale(glm::vec3(1.5f, 1.5f, 1.0f));
     m_game_state.player->set_position(-view_offset + (glm::vec3(-7.3f, 0.0f, 0.0f)));
 
-    
-    //------------- CURSORS --------------//
-    m_game_state.P1cursor = new Entity(Utility::load_texture("assets/arrow.png"), 0.0f, 0.0f, 0.0f, CURSOR);
-    m_game_state.P2cursor = new Entity(Utility::load_texture("assets/arrow.png"), 1.0f, 1.0f, 1.0f, CURSOR);
-
-    //m_game_state.P1cursor->set_texture_id_single(Utility::load_texture("assets/arrow.png"));
-    //m_game_state.P2cursor->set_texture_id_single(Utility::load_texture("assets/arrow.png"));
-
-    m_game_state.P1cursor->set_position(-view_offset + (glm::vec3(-6.0f, -1.0f, 0.0f)));
-    m_game_state.P2cursor->set_position(-view_offset + (glm::vec3(6.0f, -1.0f, 0.0f)));
-    
-    m_game_state.P1cursor->set_scale(glm::vec3(1.75f, 0.75f, 1.0f));
-    m_game_state.P2cursor->set_scale(glm::vec3(0.75f, 0.75f, 1.0f));
-
-    //m_game_state.P2cursor->face_left();
-
-    m_game_state.P1cursor->is_animated = false;
-    m_game_state.P2cursor->is_animated = false;
-
-    //m_game_state.P1cursor->deactivate();
-    m_game_state.P2cursor->deactivate();
-
-    //---------------------FIREBALLS----------------//
-    m_game_state.fireball1 = new Entity(Utility::load_texture("assets/fireball.png"), 5.5f, 0.5f, 0.5f, FIREBALL);
-
-    m_game_state.fireball1->set_position(-view_offset + (glm::vec3(-6.5f, -0.5f, 0.0f)));
-    m_game_state.fireball1->set_scale(glm::vec3(0.5f, 0.25f, 1.0f));
-    m_game_state.fireball1->set_movement(glm::vec3(0.0f, 0.0f, 0.0f));
-    m_game_state.fireball1->set_acceleration(glm::vec3(0.0f, -4.0f, 0.0f));
-    m_game_state.fireball1->set_jumping_power(1);
-    m_game_state.fireball1->deactivate();
-
-    
-
-    /**
-     Enemies' stuff */
+    // --------------------- ENEMY -----------------//
     GLuint enemy_texture_id = Utility::load_texture(ENEMY_FILEPATH);
     std::vector<GLuint> enemy_texture_ids = {
 
@@ -168,7 +133,6 @@ void LevelA::initialise()
 
     };
 
-    m_game_state.enemies = new Entity[ENEMY_COUNT];
     std::vector<std::vector<int>> enemy_animations = {
 
         {0, 1, 2, 3, 4, 5, 6,},          // IDLE animation frames
@@ -177,16 +141,62 @@ void LevelA::initialise()
 
     };
 
-    for (int i = 0; i < ENEMY_COUNT; i++)
-    {
-        m_game_state.enemies[i] = Entity(enemy_texture_ids, enemy_animations, 1.5f, 0.25f, 1.5f, ENEMY, GUARD, IDLING);
-        m_game_state.enemies[i].set_scale(glm::vec3(1.5f, 1.5f, 1.0f));
-    }
+    m_game_state.enemy = new Entity(enemy_texture_ids, enemy_animations, 1.5f, 0.25f, 1.5f, ENEMY, NONE, IDLING);
 
 
-    m_game_state.enemies[0].set_position(glm::vec3(20.0f, 0.0f, 0.0f));
-    m_game_state.enemies[0].set_movement(glm::vec3(0.0f));
-    m_game_state.enemies[0].set_acceleration(glm::vec3(0.0f, -9.81f, 0.0f));
+
+
+
+    m_game_state.enemy->set_position(glm::vec3(16.5f, -5.0f, 0.0f));
+    m_game_state.enemy->set_movement(glm::vec3(0.0f));
+    m_game_state.enemy->set_acceleration(glm::vec3(0.0f, -9.81f, 0.0f));
+    m_game_state.enemy->set_scale(glm::vec3(1.5f, 1.5f, 1.0f));
+    m_game_state.enemy->face_left();
+
+    
+    //------------- CURSORS --------------//
+    m_game_state.P1cursor = new Entity(Utility::load_texture("assets/arrow.png"), 0.0f, 0.0f, 0.0f, CURSOR);
+    m_game_state.P2cursor = new Entity(Utility::load_texture("assets/arrow.png"), 0.0f, 0.0f, 0.0f, CURSOR);
+
+    //m_game_state.P1cursor->set_texture_id_single(Utility::load_texture("assets/arrow.png"));
+    //m_game_state.P2cursor->set_texture_id_single(Utility::load_texture("assets/arrow.png"));
+
+    m_game_state.P1cursor->set_position(-view_offset + (glm::vec3(-6.0f, -1.0f, 0.0f)));
+    m_game_state.P2cursor->set_position(-view_offset + (glm::vec3(6.0f, -1.0f, 0.0f)));
+    
+    m_game_state.P1cursor->set_scale(glm::vec3(1.75f, 0.75f, 1.0f));
+    m_game_state.P2cursor->set_scale(glm::vec3(1.75f, 0.75f, 1.0f));
+
+    //m_game_state.P2cursor->face_left();
+
+    m_game_state.P1cursor->is_animated = false;
+    m_game_state.P2cursor->is_animated = false;
+
+    //m_game_state.P1cursor->deactivate();
+    //m_game_state.P2cursor->deactivate();
+
+    //---------------------FIREBALLS----------------//
+    m_game_state.fireball1 = new Entity(Utility::load_texture("assets/fireball.png"), 5.0f, 0.5f, 0.5f, FIREBALL);
+    m_game_state.fireball2 = new Entity(Utility::load_texture("assets/fireball.png"), 5.0f, 0.5f, 0.5f, FIREBALL);
+
+    m_game_state.fireball1->set_position(-view_offset + (glm::vec3(-6.5f, -0.5f, 0.0f)));
+    m_game_state.fireball1->set_starting_pos(m_game_state.fireball1->get_position());
+    m_game_state.fireball1->set_scale(glm::vec3(0.5f, 0.25f, 1.0f));
+    m_game_state.fireball1->set_movement(glm::vec3(0.0f, 0.0f, 0.0f));
+    m_game_state.fireball1->set_acceleration(glm::vec3(0.0f, -4.0f, 0.0f));
+    m_game_state.fireball1->set_jumping_power(1.0f);
+    m_game_state.fireball1->face_right();
+    m_game_state.fireball1->deactivate();
+
+    m_game_state.fireball2->set_position(-view_offset + (glm::vec3(6.1f, -0.5f, 0.0f)));
+    m_game_state.fireball2->set_starting_pos(m_game_state.fireball2->get_position());
+    m_game_state.fireball2->set_scale(glm::vec3(0.5f, 0.25f, 1.0f));
+    m_game_state.fireball2->set_movement(glm::vec3(0.0f, 0.0f, 0.0f));
+    m_game_state.fireball2->set_acceleration(glm::vec3(0.0f, -4.0f, 0.0f));
+    m_game_state.fireball2->set_jumping_power(1.0f);
+    m_game_state.fireball2->deactivate();
+
+    
 
     /**
      BGM and SFX
@@ -203,23 +213,23 @@ void LevelA::initialise()
 
 void LevelA::update(float delta_time)
 {
-    m_game_state.player->update(delta_time, m_game_state.player, m_game_state.enemies, ENEMY_COUNT, m_game_state.map, m_game_state.towers);
+    m_game_state.player->update(delta_time, m_game_state.player, m_game_state.fireball2, ENEMY_COUNT, m_game_state.map, m_game_state.towers);
 
 
-    for (int i = 0; i < ENEMY_COUNT; i++) {
-        Entity& enemy = m_game_state.enemies[i];
-        m_game_state.enemies[i].update(delta_time, m_game_state.player, NULL, 0, m_game_state.map, m_game_state.towers);
+    
+    m_game_state.enemy->update(delta_time, m_game_state.player, NULL, 0, m_game_state.map, m_game_state.towers);
 
         
-    }
-    if (m_game_state.player->get_position().y < -7.0f) {
-        m_game_state.next_scene_id = 2;
+    
+    /*if (m_game_state.player->get_position().y < -7.0f) {
+        m_game_state.next_scene_id = 0;
         m_game_state.change = true;
-    }
-    m_game_state.P1cursor->update(delta_time, m_game_state.player, m_game_state.enemies, ENEMY_COUNT, m_game_state.map, m_game_state.towers);
-    m_game_state.P2cursor->update(delta_time, m_game_state.player, m_game_state.enemies, ENEMY_COUNT, m_game_state.map, m_game_state.towers);
+    }*/
+    m_game_state.P1cursor->update(delta_time, m_game_state.player, m_game_state.enemy, ENEMY_COUNT, m_game_state.map, m_game_state.towers);
+    m_game_state.P2cursor->update(delta_time, m_game_state.player, m_game_state.enemy, ENEMY_COUNT, m_game_state.map, m_game_state.towers);
 
-    m_game_state.fireball1->update(delta_time, m_game_state.player, m_game_state.enemies, ENEMY_COUNT, m_game_state.map, m_game_state.towers);
+    m_game_state.fireball1->update(delta_time, m_game_state.player, m_game_state.enemy, ENEMY_COUNT, m_game_state.map, m_game_state.towers);
+    m_game_state.fireball2->update(delta_time, m_game_state.player, m_game_state.enemy, ENEMY_COUNT, m_game_state.map, m_game_state.towers);
 }
 
 
@@ -233,9 +243,10 @@ void LevelA::render(ShaderProgram *g_shader_program)
     m_game_state.P1cursor->render(g_shader_program);
     m_game_state.P2cursor->render(g_shader_program);
     m_game_state.fireball1->render(g_shader_program);
+    m_game_state.fireball2->render(g_shader_program);
 
-    for (int i = 0; i < m_number_of_enemies; i++)
-            m_game_state.enemies[i].render(g_shader_program);
+    
+    m_game_state.enemy->render(g_shader_program);
 
     
 }
