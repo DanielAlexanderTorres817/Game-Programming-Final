@@ -39,7 +39,7 @@ P1win::~P1win()
     delete[] m_game_state.enemy;
     delete    m_game_state.player;
     delete    m_game_state.map;
-    Mix_FreeChunk(m_game_state.jump_sfx);
+    Mix_FreeChunk(m_game_state.fireball_sfx);
     Mix_FreeMusic(m_game_state.bgm);
 }
 
@@ -131,9 +131,9 @@ void P1win::initialise()
 
     m_game_state.bgm = Mix_LoadMUS("assets/bgm.mp3");
     Mix_PlayMusic(m_game_state.bgm, -1);
-    Mix_VolumeMusic(0.0f);
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
 
-    m_game_state.jump_sfx = Mix_LoadWAV("assets/jump.wav");
+    m_game_state.fireball_sfx = Mix_LoadWAV("assets/jump.wav");
 }
 
 void P1win::update(float delta_time)

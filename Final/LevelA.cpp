@@ -73,7 +73,9 @@ LevelA::~LevelA()
     delete    m_game_state.fireball2;
     delete    m_game_state.P1cursor;
     delete    m_game_state.P2cursor;
-    Mix_FreeChunk(m_game_state.jump_sfx);
+    Mix_FreeChunk(m_game_state.fireball_sfx);
+    Mix_FreeChunk(m_game_state.hit_sfx);
+    Mix_FreeChunk(m_game_state.beat_sfx);
     Mix_FreeMusic(m_game_state.bgm);
 }
 
@@ -215,7 +217,9 @@ void LevelA::initialise()
     Mix_PlayMusic(m_game_state.bgm, -1);
     Mix_VolumeMusic(MIX_MAX_VOLUME / 2);
 
-    m_game_state.jump_sfx = Mix_LoadWAV("assets/jump.wav");
+    m_game_state.fireball_sfx = Mix_LoadWAV("assets/fireball_fx.wav");
+    m_game_state.hit_sfx = Mix_LoadWAV("assets/hit.wav");
+    m_game_state.beat_sfx = Mix_LoadWAV("assets/heartbeat.wav");
 }
 
 void LevelA::update(float delta_time)

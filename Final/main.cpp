@@ -303,6 +303,7 @@ void process_input()
     if (!g_title_flag && key_state[SDL_SCANCODE_LSHIFT] && !g_current_scene->get_state().fireball1->shoot_flag) {
 
         if (turn == PLAYER1) {
+            Mix_PlayChannel(-1, g_current_scene->get_state().fireball_sfx, 0);
             g_current_scene->get_state().fireball1->activate();
             float x = glm::cos((g_current_scene->get_state().P1cursor->get_rotation()));
             float y = glm::sin((g_current_scene->get_state().P1cursor->get_rotation()));
@@ -320,6 +321,7 @@ void process_input()
     }
     else if (!g_title_flag && key_state[SDL_SCANCODE_SPACE] && !g_current_scene->get_state().fireball2->shoot_flag) {
         if (turn == PLAYER2) {
+            Mix_PlayChannel(-1, g_current_scene->get_state().fireball_sfx, 0);
             g_current_scene->get_state().fireball2->activate();
             float x = glm::cos((g_current_scene->get_state().P2cursor->get_rotation()));
             float y = glm::sin((g_current_scene->get_state().P2cursor->get_rotation()));
@@ -365,6 +367,7 @@ void update(int random_number)
         if (g_current_scene->get_state().map->status != 'F' || g_current_scene->get_state().towers->status != 'F') {
             if (g_current_scene->get_state().map->status == 'H' || g_current_scene->get_state().towers->status == 'H') {
                 if (turn == PLAYER1) {
+                    Mix_PlayChannel(-1, g_current_scene->get_state().hit_sfx, 0);
                     P2lives--;
                     g_current_scene->get_state().fireball1->set_position(g_current_scene->get_state().fireball1->get_starting_pos());
                     g_current_scene->get_state().fireball1->set_movement(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -373,6 +376,7 @@ void update(int random_number)
                     turn = PLAYER2;
                 }
                 else if (turn == PLAYER2) {
+                    Mix_PlayChannel(-1, g_current_scene->get_state().hit_sfx, 0);
                     P1lives--;
                     g_current_scene->get_state().fireball2->set_position(g_current_scene->get_state().fireball2->get_starting_pos());
                     g_current_scene->get_state().fireball2->set_movement(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -494,6 +498,9 @@ void update(int random_number)
         g_title_flag = true;
         switch_to_scene(g_levels[3]);
 
+    }
+    if (P1lives == 1 || P2lives == 1) {
+        Mix_PlayChannel(-1, g_current_scene->get_state().beat_sfx, 0);
     }
     /*if (g_current_scene->get_state().player->check_collision(g_current_scene->get_state().fireball2)) {
         std::cout << "COLLIDED WITH P1" << std::endl;

@@ -1,5 +1,15 @@
-﻿  LevelB.cpp
+﻿  LevelA.cpp
+  LevelB.cpp
+  LevelC.cpp
+  P1win.cpp
   P2win.cpp
-C:\Users\User\source\repos\Final\Final\P2win.cpp(135,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  P2win.h
+  Scene.cpp
+  Title.cpp
+C:\Users\User\source\repos\Final\Final\Title.cpp(134,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  main.cpp
+C:\Users\User\source\repos\Final\Final\main.cpp(40,28): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
+C:\Users\User\source\repos\Final\Final\main.cpp(41,15): warning C4244: 'initializing': conversion from 'double' to 'const int', possible loss of data
+C:\Users\User\source\repos\Final\Final\main.cpp(573,25): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Generating Code...
   Final.vcxproj -> C:\Users\User\source\repos\Final\Debug\Final.exe

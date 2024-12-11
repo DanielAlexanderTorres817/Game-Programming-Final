@@ -39,7 +39,7 @@ Title::~Title()
     delete[] m_game_state.enemy;
     delete    m_game_state.player;
     delete    m_game_state.map;
-    Mix_FreeChunk(m_game_state.jump_sfx);
+    Mix_FreeChunk(m_game_state.fireball_sfx);
     Mix_FreeMusic(m_game_state.bgm);
 }
 
@@ -133,7 +133,7 @@ void Title::initialise()
     Mix_PlayMusic(m_game_state.bgm, -1);
     Mix_VolumeMusic(0.0f);
 
-    m_game_state.jump_sfx = Mix_LoadWAV("assets/jump.wav");
+    m_game_state.fireball_sfx = Mix_LoadWAV("assets/jump.wav");
 }
 
 void Title::update(float delta_time)
