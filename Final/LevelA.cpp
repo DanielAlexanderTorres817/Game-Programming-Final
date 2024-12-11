@@ -183,7 +183,7 @@ void LevelA::initialise()
 
     //---------------------FIREBALLS----------------//
     m_game_state.fireball1 = new Entity(Utility::load_texture("assets/fireball.png"), 5.0f, 0.5f, 0.5f, FIREBALL);
-    m_game_state.fireball2 = new Entity(Utility::load_texture("assets/fireball.png"), 4.75f, 0.5f, 0.5f, FIREBALL);
+    m_game_state.fireball2 = new Entity(Utility::load_texture("assets/fireball.png"), 5.0f, 0.5f, 0.5f, FIREBALL);
 
     m_game_state.fireball1->set_position(-view_offset + (glm::vec3(-6.5f, -0.5f, 0.0f)));
     m_game_state.fireball1->set_starting_pos(m_game_state.fireball1->get_position());
