@@ -38,7 +38,17 @@ void Entity::ai_activate(Entity *player)
 
 void Entity::ai_walk()
 {
-    m_movement = glm::vec3(-1.0f, 0.0f, 0.0f);
+    float bottom_ref = m_starting_pos.y;
+    float top_ref = m_starting_pos.y + 2.0;
+
+    if (m_position.y == bottom_ref) {
+        m_velocity = glm::vec3(0.0f, 1.0f, 0.0f);
+    }
+
+    else if (m_position.y == top_ref) {
+        m_velocity = glm::vec3(0.0f, -1.0f, 0.0f);
+    }
+    //else { m_movement = glm::vec3(0.0f, 1.0f, 0.0f); }
 }
 
 void Entity::ai_guard(Entity* player)
@@ -50,16 +60,7 @@ void Entity::ai_guard(Entity* player)
         }
         break;
     case WALKING:
-        if (m_position.x > player->get_position().x) {
-            m_movement = glm::vec3(-0.75f, 0.0f, 0.0f);
-            m_moving_left = true;
-        }
-        else {
-            m_movement = glm::vec3(0.75f, 0.0f, 0.0f);
-            m_moving_left = false;
-        }
-        set_texture_id(WALK);
-        set_animation_state(WALK);
+        ai_walk();
         break;
 
     case ATTACKING:
@@ -377,7 +378,7 @@ void Entity::update(float delta_time, Entity* player, Entity* collidable_entitie
         }
 
     }
-
+    //if (m_entity_type == BLOCKER) (ai_walk());
     m_velocity.x = m_movement.x * m_speed;
     //m_velocity += m_acceleration * delta_time;
 
@@ -404,7 +405,31 @@ void Entity::update(float delta_time, Entity* player, Entity* collidable_entitie
     }
 
     //m_rotation.z *= delta_time;
+    if (m_entity_type == BLOCKER) {
+        float top = m_starting_pos.y + 2.0f;
+        float bottom = m_starting_pos.y;
+        if (m_position.y <= bottom ) {
+            m_velocity = glm::vec3(0.0f, 1.0f,0.0f);
+        }
+        else if (m_position.y >= top) {
+            m_velocity = glm::vec3(0.0f, -1.0f, 0.0f);
+        }
+    }
 
+    if (m_entity_type == BIRB) {
+        float left = m_starting_pos.x;
+        float right = m_starting_pos.x + 13.0f;
+        if (m_position.x <= left) {
+            m_velocity = glm::vec3(1.0f, 0.0f, 0.0f);
+            m_movement = glm::vec3(1.0f, 0.0f, 0.0f);
+            m_moving_left = true;
+        }
+        else if (m_position.x >= right) {
+            m_velocity = glm::vec3(-1.0f, 0.0f, 0.0f);
+            m_movement = glm::vec3(-1.0f, 0.0f, 0.0f);
+            m_moving_left = false;
+        }
+    }
     m_model_matrix = glm::mat4(1.0f);
     m_model_matrix = glm::translate(m_model_matrix, m_position);
 

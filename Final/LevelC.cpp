@@ -1,4 +1,4 @@
-#include "LevelA.h"
+#include "LevelC.h"
 #include "Utility.h"
 
 #define LEVEL_WIDTH 40
@@ -10,7 +10,7 @@ PLATFORM_FILEPATH[] = "assets/tilesheet.png",
 ENEMY_FILEPATH[] = "assets/enemy/Idle.png",
 TOWER_FILEPATH[] = "assets/tilemap_packed.png";
 
-unsigned int LEVEL_DATA[] =
+unsigned int LEVELC_DATA[] =
 {
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
      0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -31,7 +31,7 @@ unsigned int LEVEL_DATA[] =
 };
 
 
-unsigned int TOWER_DATA[] =
+unsigned int TOWERC_DATA[] =
 {
     71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71,
     71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71,
@@ -39,12 +39,12 @@ unsigned int TOWER_DATA[] =
     71,  4, 26, 26,  5, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71,  4, 26, 26,  5, 71,
     71, 16,  6,  6, 17, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 16,  6,  6, 17, 71,
     71, 57, 28, 29, 59, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 57, 28, 29, 59, 71,
-    71, 57, 40, 40, 59, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 57, 40, 40, 59, 71,
-    71, 57, 40, 40, 59, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 57, 40, 40, 59, 71,
-    71, 57, 40, 28, 59, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 57, 40, 28, 59, 71,
-    71, 57, 40, 40, 59, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 57, 40, 40, 59, 71,
-    71, 57, 40, 40, 59, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 57, 40, 40, 59, 71,
-    71, 57, 46, 47, 59, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 57, 46, 47, 59, 71,
+    71, 57, 40, 40, 59, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 63, 63, 71, 71, 63, 63, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 57, 40, 40, 59, 71,
+    71, 57, 40, 40, 59, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 63, 63, 71, 71, 63, 63, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 57, 40, 40, 59, 71,
+    71, 57, 40, 28, 59, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 63, 63, 71, 71, 63, 63, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 57, 40, 28, 59, 71,
+    71, 57, 40, 40, 59, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 63, 63, 71, 71, 63, 63, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 57, 40, 40, 59, 71,
+    71, 57, 40, 40, 59, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 63, 63, 71, 71, 63, 63, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 57, 40, 40, 59, 71,
+    71, 57, 46, 47, 59, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 75, 75, 71, 71, 75, 75, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 57, 46, 47, 59, 71,
     71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71,
     71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71,
     71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71, 71,
@@ -57,14 +57,14 @@ unsigned int TOWER_DATA[] =
 
 
 // ------ CAMERA ADJUST ---------//
-float left_bound_offset = -(LEVEL_WIDTH * 0.5) / 2.0f;
-float top_bound_offset = (LEVEL_HEIGHT * 0.5) / 2.0f;
-glm::vec3 view_offset(left_bound_offset, top_bound_offset, 0.0f);
+float leftC_bound_offset = -(LEVEL_WIDTH * 0.5) / 2.0f;
+float topC_bound_offset = (LEVEL_HEIGHT * 0.5) / 2.0f;
+glm::vec3 viewC_offset(leftC_bound_offset, topC_bound_offset, 0.0f);
 
-GLuint  A_font_texture_id;
+//GLuint  A_font_texture_id;
 
 
-LevelA::~LevelA()
+LevelC::~LevelC()
 {
     delete m_game_state.enemy;
     delete    m_game_state.player;
@@ -73,19 +73,23 @@ LevelA::~LevelA()
     delete    m_game_state.fireball2;
     delete    m_game_state.P1cursor;
     delete    m_game_state.P2cursor;
+    delete    m_game_state.birb;
+    delete    m_game_state.blocker1;
+    delete    m_game_state.blocker2;
+    delete    m_game_state.blocker3;
     Mix_FreeChunk(m_game_state.jump_sfx);
     Mix_FreeMusic(m_game_state.bgm);
 }
 
-void LevelA::initialise()
+void LevelC::initialise()
 {
-    A_font_texture_id = Utility::load_texture("assets/font1.png");
+    //A_font_texture_id = Utility::load_texture("assets/font1.png");
 
     GLuint map_texture_id = Utility::load_texture(PLATFORM_FILEPATH);
     GLuint tower_texture_id = Utility::load_texture(TOWER_FILEPATH);
 
-    m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, LEVEL_DATA, map_texture_id, 0.5f, 7, 6);
-    m_game_state.towers = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, TOWER_DATA, tower_texture_id, 0.5f, 12, 11);
+    m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, LEVELC_DATA, map_texture_id, 0.5f, 7, 6);
+    m_game_state.towers = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, TOWERC_DATA, tower_texture_id, 0.5f, 12, 11);
     GLuint player_idle_texture_id = Utility::load_texture(PLAYER_IDLE_FILEPATH);
     GLuint player_walk_texture_id = Utility::load_texture(PLAYER_RUN_FILEPATH);
 
@@ -106,7 +110,7 @@ void LevelA::initialise()
         //{0, 1, 2, 3, 4, 5, 6, 7, 8}     // ATTACK animation frames
     };
 
-    glm::vec3 acceleration = glm::vec3(0.0f, -4.09f, 0.0f);
+    glm::vec3 acceleration = glm::vec3(0.0f, -5.905f, 0.0f);
 
     m_game_state.player = new Entity(
         player_texture_ids,        // texture id
@@ -125,7 +129,7 @@ void LevelA::initialise()
     );
 
     m_game_state.player->set_scale(glm::vec3(1.5f, 1.5f, 1.0f));
-    m_game_state.player->set_position(-view_offset + (glm::vec3(-7.3f, 0.0f, 0.0f)));
+    m_game_state.player->set_position(-viewC_offset + (glm::vec3(-7.3f, 0.0f, 0.0f)));
 
     // --------------------- ENEMY -----------------//
     GLuint enemy_texture_id = Utility::load_texture(ENEMY_FILEPATH);
@@ -151,11 +155,51 @@ void LevelA::initialise()
 
 
 
-    m_game_state.enemy->set_position(glm::vec3(16.5f, -4.5f, 0.0f));
+    m_game_state.enemy->set_position(glm::vec3(16.5f, -5.0f, 0.0f));
     m_game_state.enemy->set_movement(glm::vec3(0.0f));
     m_game_state.enemy->set_acceleration(glm::vec3(0.0f, -9.81f, 0.0f));
     m_game_state.enemy->set_scale(glm::vec3(1.5f, 1.5f, 1.0f));
     m_game_state.enemy->face_left();
+
+
+
+    //--------------------------------BIRB!-----------------------------------------//
+    std::vector<GLuint> birb_texture_ids = {
+
+        Utility::load_texture("assets/bird.png"), // IDLE spritesheet
+        
+
+
+    };
+
+    std::vector<std::vector<int>> birb_animations = {
+
+        {0, 1, 2, 3, 4, 5, 6,7}       // IDLE animation frames
+               
+
+
+    };
+
+    m_game_state.birb = new Entity(
+        birb_texture_ids,        // texture id
+        0.5f,                      // speed
+        glm::vec3(0.0f, 0.0f, 0.0f),              // acceleration
+        0.0f,                      // jumping power
+        birb_animations,         // animation index sets
+        0.0f,                      // animation time
+        8,                         // animation frame amount
+        0,                         // current animation index
+        8,                         // animation column amount
+        1,                         // animation row amount
+        0.5f,                     // width
+        0.5f,                      // height
+        BIRB
+    );
+    m_game_state.birb->set_scale(glm::vec3(0.5f, 0.5f, 1.0f));
+    m_game_state.birb->set_animation_state(IDLE);
+    m_game_state.birb->set_position(-viewC_offset + (glm::vec3(-6.0f, 3.5f, 0.0f)));
+    m_game_state.birb->set_starting_pos(-viewC_offset + (glm::vec3(-6.0f, 3.5f, 0.0f)));
+    m_game_state.birb->face_left();
 
 
     //------------- CURSORS --------------//
@@ -165,8 +209,8 @@ void LevelA::initialise()
     //m_game_state.P1cursor->set_texture_id_single(Utility::load_texture("assets/arrow.png"));
     //m_game_state.P2cursor->set_texture_id_single(Utility::load_texture("assets/arrow.png"));
 
-    m_game_state.P1cursor->set_position(-view_offset + (glm::vec3(-6.0f, -1.0f, 0.0f)));
-    m_game_state.P2cursor->set_position(-view_offset + (glm::vec3(6.0f, -1.0f, 0.0f)));
+    m_game_state.P1cursor->set_position(-viewC_offset + (glm::vec3(-6.0f, -1.0f, 0.0f)));
+    m_game_state.P2cursor->set_position(-viewC_offset + (glm::vec3(6.0f, -1.0f, 0.0f)));
 
     m_game_state.P1cursor->set_scale(glm::vec3(1.75f, 0.75f, 1.0f));
     m_game_state.P2cursor->set_scale(glm::vec3(1.75f, 0.75f, 1.0f));
@@ -181,9 +225,9 @@ void LevelA::initialise()
 
     //---------------------FIREBALLS----------------//
     m_game_state.fireball1 = new Entity(Utility::load_texture("assets/fireball.png"), 5.0f, 0.5f, 0.5f, FIREBALL);
-    m_game_state.fireball2 = new Entity(Utility::load_texture("assets/fireball.png"), 4.75f, 0.5f, 0.5f, FIREBALL);
+    m_game_state.fireball2 = new Entity(Utility::load_texture("assets/fireball.png"), 5.0f, 0.5f, 0.5f, FIREBALL);
 
-    m_game_state.fireball1->set_position(-view_offset + (glm::vec3(-6.5f, -0.5f, 0.0f)));
+    m_game_state.fireball1->set_position(-viewC_offset + (glm::vec3(-6.5f, -0.5f, 0.0f)));
     m_game_state.fireball1->set_starting_pos(m_game_state.fireball1->get_position());
     m_game_state.fireball1->set_scale(glm::vec3(0.5f, 0.25f, 1.0f));
     m_game_state.fireball1->set_movement(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -192,7 +236,7 @@ void LevelA::initialise()
     //m_game_state.fireball1->face_right();
     m_game_state.fireball1->deactivate();
 
-    m_game_state.fireball2->set_position(-view_offset + (glm::vec3(6.1f, -0.5f, 0.0f)));
+    m_game_state.fireball2->set_position(-viewC_offset + (glm::vec3(6.1f, -0.5f, 0.0f)));
     m_game_state.fireball2->set_starting_pos(m_game_state.fireball2->get_position());
     m_game_state.fireball2->set_scale(glm::vec3(0.5f, 0.25f, 1.0f));
     m_game_state.fireball2->set_movement(glm::vec3(0.0f, 0.0f, 0.0f));
@@ -200,10 +244,38 @@ void LevelA::initialise()
     m_game_state.fireball2->set_jumping_power(1.0f);
     m_game_state.fireball2->deactivate();
 
-    m_game_state.fireball1->is_animated = false;
-    m_game_state.fireball2->is_animated = false;
 
 
+    //-----------------------BLOCKERS------------------------------------//
+    m_game_state.blocker1 = new Entity(Utility::load_texture("assets/Paddle.png"), 0.25f, 0.35f, 0.5f, ENEMY);
+    m_game_state.blocker2 = new Entity(Utility::load_texture("assets/Paddle.png"), 0.05f, 0.35f, 0.5f, BLOCKER);
+    m_game_state.blocker3 = new Entity(Utility::load_texture("assets/Paddle.png"), 0.05f, 0.35f, 0.5f, BLOCKER);
+
+    m_game_state.blocker1->set_position(-viewC_offset + (glm::vec3(0.0f, 0.0f, 0.0f)));
+    m_game_state.blocker2->set_position(-viewC_offset + (glm::vec3( -6.65f, -0.05f, 0.0f)));
+    m_game_state.blocker3->set_position(-viewC_offset + (glm::vec3( 6.65f, -0.05f, 0.0f)));
+
+    m_game_state.blocker1->set_starting_pos(-viewC_offset + (glm::vec3(-5.05f, -0.05f, 0.0f)));
+    m_game_state.blocker2->set_starting_pos(-viewC_offset + (glm::vec3(-6.65f, -0.05f, 0.0f)));
+    m_game_state.blocker3->set_starting_pos(-viewC_offset + (glm::vec3( 6.65f, -0.05f, 0.0f)));
+
+    m_game_state.blocker1->set_scale(glm::vec3(0.35f, 0.5f, 1.0f));
+    m_game_state.blocker2->set_scale(glm::vec3(0.35f, 0.5f, 1.0f));
+    m_game_state.blocker3->set_scale(glm::vec3(0.35f, 0.5f, 1.0f));
+
+    //m_game_state.blocker1->set_ai_type(WALKER);
+    //m_game_state.blocker2->set_ai_type(WALKER);
+    //m_game_state.blocker2->set_movement(glm::vec3(0.0f, 1.0f, 0.0f));
+    //m_game_state.blocker2->set_velocity(glm::vec3(0.0f, 1.0f, 0.0f));
+    
+
+
+    m_game_state.blocker1->set_acceleration(glm::vec3(0.0f, -9.0f, 0.0f));
+    //m_game_state.blocker2->set_acceleration(glm::vec3(0.0f, 0.0f, 0.0f));
+
+    m_game_state.blocker1->is_animated = false;
+    m_game_state.blocker1->set_ai_type(JUMPER);
+    m_game_state.blocker1->set_jumping_power(9.0f);
 
     /**
      BGM and SFX
@@ -218,42 +290,82 @@ void LevelA::initialise()
     m_game_state.jump_sfx = Mix_LoadWAV("assets/jump.wav");
 }
 
-void LevelA::update(float delta_time)
+void LevelC::update(float delta_time)
 {
     m_game_state.player->update(delta_time, m_game_state.player, m_game_state.fireball2, 1, m_game_state.map, m_game_state.towers);
-
-
-
     m_game_state.enemy->update(delta_time, m_game_state.player, m_game_state.fireball2, 1, m_game_state.map, m_game_state.towers);
+    m_game_state.P1cursor->update(delta_time, m_game_state.player, m_game_state.enemy, 1, m_game_state.map, m_game_state.towers);
+    m_game_state.P2cursor->update(delta_time, m_game_state.player, m_game_state.enemy, 1, m_game_state.map, m_game_state.towers);
+    
 
-
-
-    /*if (m_game_state.player->get_position().y < -7.0f) {
-        m_game_state.next_scene_id = 0;
-        m_game_state.change = true;
-    }*/
-    m_game_state.P1cursor->update(delta_time, m_game_state.player, m_game_state.enemy, ENEMY_COUNT, m_game_state.map, m_game_state.towers);
-    m_game_state.P2cursor->update(delta_time, m_game_state.player, m_game_state.enemy, ENEMY_COUNT, m_game_state.map, m_game_state.towers);
+    /* Entity** collidables = new Entity * [2];
+     collidables[0] = m_game_state.fireball1;
+     collidables[1] = m_game_state.fireball2;*/
 
     m_game_state.fireball1->update(delta_time, m_game_state.player, m_game_state.enemy, ENEMY_COUNT, m_game_state.map, m_game_state.towers);
-    /*if (m_game_state.fireball1->check_collision(m_game_state.enemy)) {
-        m_game_state.fireball1->deactivate();
-    }*/
-    m_game_state.fireball2->update(delta_time, m_game_state.enemy, m_game_state.player, ENEMY_COUNT, m_game_state.map, m_game_state.towers);
+
+    m_game_state.fireball2->update(delta_time, m_game_state.player, m_game_state.player, ENEMY_COUNT, m_game_state.map, m_game_state.towers);
+    m_game_state.blocker1->update(delta_time, m_game_state.player, m_game_state.fireball1, 1, m_game_state.map, m_game_state.towers);
+    m_game_state.blocker1->update(delta_time, m_game_state.player, m_game_state.fireball2, 1, m_game_state.map, m_game_state.towers);
+    if (m_game_state.blocker1->check_collision(m_game_state.fireball1)) {
+        glm::vec3 pos = m_game_state.fireball1->get_position();
+        pos.y = m_game_state.player->get_position().y;
+        m_game_state.fireball1->set_position(pos);
+
+    }
+    if (m_game_state.blocker1->check_collision(m_game_state.fireball2)) {
+        glm::vec3 pos = m_game_state.fireball2->get_position();
+        pos.y = m_game_state.player->get_position().y;
+        m_game_state.fireball2->set_position(pos);
+    }
+    m_game_state.blocker2->update(delta_time, m_game_state.player, m_game_state.fireball2, 1, m_game_state.map, m_game_state.towers);
+
+    if (m_game_state.blocker2->check_collision(m_game_state.fireball2)) {
+        glm::vec3 pos = m_game_state.fireball2->get_position();
+        pos.y = m_game_state.player->get_position().y;
+        m_game_state.fireball2->set_position(pos);
+
+    }
+    m_game_state.blocker3->update(delta_time, m_game_state.player, m_game_state.fireball1, 1, m_game_state.map, m_game_state.towers);
+    
+    if (m_game_state.blocker3->check_collision(m_game_state.fireball1)) {
+        glm::vec3 pos = m_game_state.fireball1->get_position();
+        pos.y = m_game_state.player->get_position().y;
+        m_game_state.fireball1->set_position(pos);
+    }
+    m_game_state.birb->update(delta_time, m_game_state.player, m_game_state.fireball1, 1, m_game_state.map, m_game_state.towers);
+
+    if (m_game_state.birb->check_collision(m_game_state.fireball1)) {
+        m_game_state.player->bird_hit = true;
+
+    }
+    m_game_state.birb->update(delta_time, m_game_state.player, m_game_state.fireball2, 1, m_game_state.map, m_game_state.towers);
+    if (m_game_state.birb->check_collision(m_game_state.fireball2)) {
+        m_game_state.player->bird_hit = true;
+
+    }
+
+
 }
 
 
 
-void LevelA::render(ShaderProgram* g_shader_program)
+void LevelC::render(ShaderProgram* g_shader_program)
 {
 
     m_game_state.map->render(g_shader_program);
     m_game_state.towers->render(g_shader_program);
     m_game_state.player->render(g_shader_program);
+    m_game_state.birb->render(g_shader_program);
+
     m_game_state.P1cursor->render(g_shader_program);
     m_game_state.P2cursor->render(g_shader_program);
     m_game_state.fireball1->render(g_shader_program);
     m_game_state.fireball2->render(g_shader_program);
+    m_game_state.blocker1->render(g_shader_program);
+    m_game_state.blocker2->render(g_shader_program);
+    m_game_state.blocker3->render(g_shader_program);
+
 
 
     m_game_state.enemy->render(g_shader_program);

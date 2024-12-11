@@ -116,6 +116,7 @@ bool Map::is_solid(glm::vec3 position, float* penetration_x, float* penetration_
     else if (tile == 4 || tile == 26 || tile == 5 || tile == 16 || tile == 6 || tile == 17 || tile == 28 || tile == 29 || tile == 57 || tile == 59 || tile == 40 || tile == 46 || tile == 47) {
         this->status = 'H';
     }
+    else if (tile == 72) { this->status = 'N'; }
 
     float tile_center_x = (tile_x * m_tile_size);
     float tile_center_y = -(tile_y * m_tile_size);

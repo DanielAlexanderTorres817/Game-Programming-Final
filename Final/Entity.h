@@ -15,7 +15,7 @@
 #include "Map.h"
 #include "glm/glm.hpp"
 #include "ShaderProgram.h"
-enum EntityType { CURSOR, PLAYER, ENEMY, FIREBALL };
+enum EntityType { CURSOR, PLAYER, ENEMY, FIREBALL, BLOCKER, BIRB};
 enum AIType { WALKER, GUARD, JUMPER, NONE };
 enum AIState { WALKING, IDLING, ATTACKING };
 enum Animation { IDLE, WALK };
@@ -30,6 +30,7 @@ public:
 
     bool is_animated = true;
     bool shoot_flag = false;
+    bool bird_hit = false;
 
 private:
 

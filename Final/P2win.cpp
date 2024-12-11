@@ -39,6 +39,7 @@ P2win::~P2win()
     delete[] m_game_state.enemy;
     delete    m_game_state.player;
     delete    m_game_state.map;
+    //delete     m_game_state.towers;
     Mix_FreeChunk(m_game_state.jump_sfx);
     Mix_FreeMusic(m_game_state.bgm);
 }

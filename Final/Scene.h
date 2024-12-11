@@ -30,6 +30,13 @@ struct GameState
     Entity *P2cursor;
     Entity* fireball1;
     Entity* fireball2;
+    Entity* blocker1;
+    Entity* blocker2;
+    Entity* blocker3;
+    Entity* birb;
+    
+
+
     
     // ————— AUDIO ————— //
     Mix_Music *bgm;
